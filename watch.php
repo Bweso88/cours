@@ -1,4 +1,7 @@
 <?php
+require_once __DIR__ . '/viewer_auth.php';
+requireViewerAuth();
+
 $videoDir = "videos/";
 $viewsDir = "views/";
 if (!file_exists($viewsDir)) mkdir($viewsDir, 0777, true);
@@ -14,16 +17,22 @@ if (empty($theme) || empty($file) || !is_dir($themePath) || !file_exists($videoP
     exit;
 }
 
-/* Incrémenter le compteur de vues */
 $filename = pathinfo($file, PATHINFO_FILENAME);
 $vf       = $viewsDir . $filename . ".txt";
 $views    = file_exists($vf) ? (int)file_get_contents($vf) : 0;
 $views++;
 file_put_contents($vf, $views);
 
-$displayName = ucfirst(str_replace(['_','-'], ' ', $filename));
+$watchLogId = null;
+if (!empty($_SESSION['viewer']['id'])) {
+    try {
+        $pdo->prepare("INSERT INTO video_watch_log (viewer_id, theme, video) VALUES (?, ?, ?)")
+            ->execute([$_SESSION['viewer']['id'], $theme, $file]);
+        $watchLogId = (int)$pdo->lastInsertId();
+    } catch (Exception $e) {}
+}
 
-/* Autres vidéos du même thème */
+$displayName = ucfirst(str_replace(['_','-'], ' ', $filename));
 $allVideos   = glob($themePath . "*.mp4") ?: [];
 $allThemes   = array_filter(glob($videoDir . "*"), 'is_dir');
 $icons       = ["🖥️","📊","📋","🎯","💡","📈","🔧","📚","🎓","💼","🌐","📱"];
@@ -36,7 +45,7 @@ $icons       = ["🖥️","📊","📋","🎯","💡","📈","🔧","📚","🎓
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 :root{
-  --navy:#0d1b4b;--indigo:#1a2e6e;--indigo-d:#142457;--indigo-l:#eef2ff;
+  --navy:#0d1b4b;--indigo:#e8192c;--indigo-d:#c0141f;--indigo-l:#fff1f2;
   --bg:#f5f7fa;--card:#ffffff;--muted:#6b7280;--border:#e5e7eb;--radius:10px;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -51,11 +60,11 @@ a{text-decoration:none;color:inherit;}
 .navbar-links{display:flex;align-items:center;gap:20px;}
 .navbar-links a{color:#d1d5db;font-size:.88rem;transition:color .2s;}
 .navbar-links a:hover{color:#fff;}
-.btn-nav{background:var(--indigo);color:#fff !important;padding:6px 18px;border-radius:6px;font-weight:600;font-size:.82rem;}
+.btn-nav{background:#1a2e6e;color:#fff !important;padding:6px 18px;border-radius:6px;font-weight:600;font-size:.82rem;}
 
 .breadcrumb-bar{background:var(--navy);padding:10px 5%;border-top:1px solid #1a2e6e;}
 .breadcrumb-custom{display:flex;align-items:center;gap:8px;color:#9ca3af;font-size:.83rem;flex-wrap:wrap;}
-.breadcrumb-custom a{color:#93b4e8;transition:color .2s;}
+.breadcrumb-custom a{color:#ff8a94;transition:color .2s;}
 .breadcrumb-custom a:hover{color:#fff;}
 .breadcrumb-sep{color:#4b5563;}
 
@@ -72,14 +81,13 @@ a{text-decoration:none;color:inherit;}
 .meta-pill svg{flex-shrink:0;}
 .back-link{display:inline-flex;align-items:center;gap:6px;background:var(--indigo-l);color:var(--indigo);
   font-size:.82rem;font-weight:600;padding:6px 14px;border-radius:6px;transition:background .2s;}
-.back-link:hover{background:#c7d2fe;}
+.back-link:hover{background:#fecaca;}
 
-/* Sidebar */
 .watch-sidebar{background:#fff;border-left:1px solid var(--border);height:calc(100vh - 64px);
   overflow-y:auto;position:sticky;top:64px;}
 .sidebar-head{padding:16px 18px;font-weight:700;font-size:.88rem;border-bottom:1px solid var(--border);
   background:var(--navy);color:#fff;display:flex;align-items:center;gap:8px;position:sticky;top:0;z-index:2;}
-.sidebar-head span{color:#93b4e8;}
+.sidebar-head span{color:#ff8a94;}
 .sidebar-item{display:flex;align-items:center;gap:12px;padding:12px 18px;
   border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;}
 .sidebar-item:hover{background:var(--bg);}
@@ -91,7 +99,7 @@ a{text-decoration:none;color:inherit;}
   background:rgba(0,0,0,.3);}
 .sitem-play-icon svg{width:16px;height:16px;fill:#fff;}
 .sitem-info{flex:1;min-width:0;}
-.sitem-num{font-size:.68rem;background:var(--indigo);color:#fff;padding:1px 6px;border-radius:10px;
+.sitem-num{font-size:.68rem;background:#1a2e6e;color:#fff;padding:1px 6px;border-radius:10px;
   display:inline-block;margin-bottom:4px;font-weight:700;}
 .sitem-name{font-size:.82rem;font-weight:600;color:var(--navy);line-height:1.35;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
@@ -111,6 +119,10 @@ footer a{color:#6b7280;}footer a:hover{color:#fff;}
   <nav class="navbar-links">
     <a href="index.php">Accueil</a>
     <a href="index.php#formations">Formations</a>
+    <?php if (!empty($_SESSION['viewer']['login'])): ?>
+      <span style="color:#6b7280;font-size:.82rem;">👤 <?php echo htmlspecialchars($_SESSION['viewer']['login']); ?></span>
+      <a href="viewer_logout.php" style="color:#9ca3af;font-size:.82rem;">Déconnexion</a>
+    <?php endif; ?>
     <a href="admin/login.php" class="btn-nav">Admin</a>
   </nav>
 </header>
@@ -128,8 +140,6 @@ footer a{color:#6b7280;}footer a:hover{color:#fff;}
 </div>
 
 <div class="watch-layout">
-
-  <!-- Player + info -->
   <div>
     <div class="player-wrap">
       <video controls autoplay preload="auto">
@@ -161,7 +171,6 @@ footer a{color:#6b7280;}footer a:hover{color:#fff;}
     </div>
   </div>
 
-  <!-- Sidebar: liste des vidéos -->
   <aside class="watch-sidebar">
     <div class="sidebar-head">
       📁 <span><?php echo htmlspecialchars($theme); ?></span>
@@ -198,7 +207,6 @@ footer a{color:#6b7280;}footer a:hover{color:#fff;}
     </a>
     <?php endforeach; ?>
   </aside>
-
 </div>
 
 <footer>
@@ -207,5 +215,20 @@ footer a{color:#6b7280;}footer a:hover{color:#fff;}
   <a href="admin/login.php">Administration</a>
 </footer>
 
+<script>
+(function(){
+  var video  = document.querySelector('.player-wrap video');
+  var logId  = <?php echo $watchLogId ? (int)$watchLogId : 'null'; ?>;
+  if (!video || !logId) return;
+
+  function send(sec) {
+    navigator.sendBeacon('track_video.php',
+      new URLSearchParams({log_id: logId, seconds: Math.round(sec)}));
+  }
+
+  setInterval(function(){ if (!video.paused) send(video.currentTime); }, 30000);
+  window.addEventListener('beforeunload', function(){ send(video.currentTime); });
+})();
+</script>
 </body>
 </html>

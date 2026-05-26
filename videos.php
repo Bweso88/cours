@@ -1,8 +1,10 @@
 <?php
+require_once __DIR__ . '/viewer_auth.php';
+requireViewerAuth();
+
 $videoDir = "videos/";
 $viewsDir = "views/";
 if (!file_exists($viewsDir)) mkdir($viewsDir, 0777, true);
-
 
 $theme     = isset($_GET['theme']) ? basename($_GET['theme']) : '';
 $themePath = $videoDir . $theme . "/";
@@ -33,7 +35,7 @@ $coverImg   = $coverFiles ? $coverFiles[0] : "";
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <style>
 :root{
-  --navy:#0d1b4b;--indigo:#1a2e6e;--indigo-d:#142457;
+  --navy:#0d1b4b;--indigo:#e8192c;--indigo-d:#c0141f;
   --bg:#f5f7fa;--card:#ffffff;--muted:#6b7280;--border:#e5e7eb;--radius:10px;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -49,11 +51,11 @@ a{text-decoration:none;color:inherit;}
 .navbar-links{display:flex;align-items:center;gap:20px;}
 .navbar-links a{color:#d1d5db;font-size:.88rem;transition:color .2s;}
 .navbar-links a:hover{color:#fff;}
-.btn-nav{background:var(--indigo);color:#fff !important;padding:6px 18px;border-radius:6px;font-weight:600;font-size:.82rem;}
+.btn-nav{background:#1a2e6e;color:#fff !important;padding:6px 18px;border-radius:6px;font-weight:600;font-size:.82rem;}
 
 .course-banner{background:linear-gradient(135deg,#0d1b4b,#1a2e6e);padding:40px 5%;color:#fff;}
 .breadcrumb-custom{display:flex;align-items:center;gap:8px;color:#9ca3af;font-size:.85rem;margin-bottom:16px;}
-.breadcrumb-custom a{color:#93b4e8;transition:color .2s;}
+.breadcrumb-custom a{color:#ff8a94;transition:color .2s;}
 .breadcrumb-custom a:hover{color:#fff;}
 .breadcrumb-sep{color:#4b5563;}
 .course-banner h1{font-size:clamp(1.4rem,3vw,2.2rem);font-weight:800;margin-bottom:12px;}
@@ -76,14 +78,14 @@ a{text-decoration:none;color:inherit;}
 .video-thumb-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
   background:rgba(0,0,0,.25);opacity:0;transition:opacity .25s;}
 .video-card:hover .video-thumb-overlay{opacity:1;}
-.play-btn{width:48px;height:48px;background:var(--indigo);border-radius:50%;display:flex;
-  align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(26,46,110,.5);}
+.play-btn{width:48px;height:48px;background:#1a2e6e;border-radius:50%;display:flex;
+  align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(232,25,44,.5);}
 .play-btn svg{width:20px;height:20px;fill:#fff;margin-left:3px;}
 .video-body{padding:12px 14px 14px;}
 .video-title{font-size:.9rem;font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:6px;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 .video-views{color:var(--muted);font-size:.78rem;display:flex;align-items:center;gap:4px;}
-.video-num{background:var(--indigo);color:#fff;font-size:.7rem;font-weight:700;
+.video-num{background:#1a2e6e;color:#fff;font-size:.7rem;font-weight:700;
   padding:2px 8px;border-radius:12px;display:inline-block;margin-bottom:6px;}
 
 .sidebar-courses{position:sticky;top:80px;}
@@ -94,12 +96,12 @@ a{text-decoration:none;color:inherit;}
 .sidebar-theme{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:7px;
   transition:background .15s;color:var(--navy);font-size:.87rem;}
 .sidebar-theme:hover{background:#f3f4f6;}
-.sidebar-theme.active{background:#eef2ff;color:var(--indigo);font-weight:600;}
+.sidebar-theme.active{background:#fff1f2;color:var(--indigo);font-weight:600;}
 .sidebar-theme-icon{font-size:1.1rem;flex-shrink:0;}
 .sidebar-theme-name{flex:1;}
 .sidebar-theme-count{background:#e5e7eb;color:#374151;font-size:.7rem;font-weight:600;
   padding:2px 7px;border-radius:10px;}
-.sidebar-theme.active .sidebar-theme-count{background:#c7d2fe;color:var(--indigo-d);}
+.sidebar-theme.active .sidebar-theme-count{background:#fecaca;color:var(--indigo-d);}
 
 .empty-state{text-align:center;padding:60px 20px;}
 .empty-state .big-icon{font-size:4rem;margin-bottom:16px;}
@@ -118,6 +120,10 @@ footer a{color:#6b7280;}footer a:hover{color:#fff;}
   <nav class="navbar-links">
     <a href="index.php">Accueil</a>
     <a href="index.php#formations">Formations</a>
+    <?php if (!empty($_SESSION['viewer']['login'])): ?>
+      <span style="color:#6b7280;font-size:.82rem;">👤 <?php echo htmlspecialchars($_SESSION['viewer']['login']); ?></span>
+      <a href="viewer_logout.php" style="color:#9ca3af;font-size:.82rem;">Déconnexion</a>
+    <?php endif; ?>
     <a href="admin/login.php" class="btn-nav">Admin</a>
   </nav>
 </header>

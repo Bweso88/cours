@@ -1,4 +1,7 @@
 <?php
+require_once __DIR__ . '/viewer_auth.php';
+requireViewerAuth();
+
 $videoDir = "videos/";
 $themes   = array_filter(glob($videoDir . "*"), 'is_dir');
 
@@ -15,7 +18,6 @@ foreach ($themes as $themeDir) {
 }
 $totalThemes = count($themeData);
 
-/* Icônes par ordre cyclique */
 $icons  = ["🖥️","📊","📋","🎯","💡","📈","🔧","📚","🎓","💼","🌐","📱"];
 $colors = ["#6366f1","#0ea5e9","#10b981","#f59e0b","#ef4444","#8b5cf6","#06b6d4","#84cc16","#f97316","#ec4899","#14b8a6","#a855f7"];
 ?>
@@ -27,12 +29,11 @@ $colors = ["#6366f1","#0ea5e9","#10b981","#f59e0b","#ef4444","#8b5cf6","#06b6d4"
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <style>
-/* ===== VARIABLES ===== */
 :root{
   --navy:#0d1b4b;
   --navy2:#1a2e6e;
-  --indigo:#1a2e6e;
-  --indigo-d:#142457;
+  --indigo:#e8192c;
+  --indigo-d:#c0141f;
   --sky:#1a2e6e;
   --bg:#f5f7fa;
   --card:#ffffff;
@@ -40,13 +41,11 @@ $colors = ["#6366f1","#0ea5e9","#10b981","#f59e0b","#ef4444","#8b5cf6","#06b6d4"
   --border:#e5e7eb;
   --radius:10px;
 }
-/* ===== RESET / BASE ===== */
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);color:var(--navy);font-family:"Segoe UI",system-ui,sans-serif;line-height:1.6;}
 a{text-decoration:none;color:inherit;}
 img{display:block;}
 
-/* ===== NAVBAR ===== */
 .navbar{background:var(--navy);padding:0 5%;height:64px;display:flex;align-items:center;
   justify-content:space-between;position:sticky;top:0;z-index:999;
   box-shadow:0 2px 12px rgba(0,0,0,.35);}
@@ -56,20 +55,19 @@ img{display:block;}
 .navbar-links{display:flex;align-items:center;gap:24px;}
 .navbar-links a{color:#d1d5db;font-size:.9rem;transition:color .2s;}
 .navbar-links a:hover{color:#fff;}
-.btn-nav{background:var(--indigo);color:#fff !important;padding:7px 20px;border-radius:6px;
+.btn-nav{background:#1a2e6e;color:#fff !important;padding:7px 20px;border-radius:6px;
   font-weight:600;font-size:.85rem;transition:background .2s;}
-.btn-nav:hover{background:var(--indigo-d);}
+.btn-nav:hover{background:#142457;}
 
-/* ===== HERO ===== */
 .hero{background:linear-gradient(135deg,#0d1b4b 0%,#1a2e6e 50%,#0d1b4b 100%);
   padding:80px 5% 90px;position:relative;overflow:hidden;}
 .hero::before{content:"";position:absolute;top:-60px;right:-60px;width:420px;height:420px;
-  border-radius:50%;background:radial-gradient(circle,rgba(26,46,110,.25) 0%,transparent 70%);}
+  border-radius:50%;background:radial-gradient(circle,rgba(232,25,44,.25) 0%,transparent 70%);}
 .hero::after{content:"";position:absolute;bottom:-80px;left:10%;width:300px;height:300px;
   border-radius:50%;background:radial-gradient(circle,rgba(14,165,233,.2) 0%,transparent 70%);}
 .hero-inner{max-width:680px;position:relative;z-index:1;}
-.hero-badge{display:inline-block;background:rgba(26,46,110,.2);border:1px solid rgba(26,46,110,.4);
-  color:#93b4e8;padding:4px 14px;border-radius:20px;font-size:.8rem;font-weight:600;
+.hero-badge{display:inline-block;background:rgba(232,25,44,.2);border:1px solid rgba(232,25,44,.4);
+  color:#ff8a94;padding:4px 14px;border-radius:20px;font-size:.8rem;font-weight:600;
   letter-spacing:.05em;text-transform:uppercase;margin-bottom:20px;}
 .hero h1{font-size:clamp(1.8rem,4vw,3rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:16px;}
 .hero h1 span{color:var(--indigo);}
@@ -79,7 +77,6 @@ img{display:block;}
 .hero-stat strong{color:#fff;font-size:1.6rem;font-weight:800;}
 .hero-stat small{color:#9ca3af;font-size:.82rem;}
 
-/* ===== SECTION ===== */
 .section{padding:60px 5%;}
 .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;}
 .section-title{font-size:1.5rem;font-weight:800;color:var(--navy);}
@@ -87,7 +84,6 @@ img{display:block;}
 .section-link{color:var(--indigo);font-size:.88rem;font-weight:600;display:flex;align-items:center;gap:4px;}
 .section-link:hover{color:var(--indigo-d);}
 
-/* ===== COURSE CARDS ===== */
 .courses-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px;}
 .course-card{background:var(--card);border-radius:var(--radius);overflow:hidden;
   box-shadow:0 2px 10px rgba(0,0,0,.07);transition:transform .25s,box-shadow .25s;
@@ -105,17 +101,15 @@ img{display:block;}
 .course-meta{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:10px;
   border-top:1px solid var(--border);}
 .course-meta span{color:var(--muted);font-size:.8rem;display:flex;align-items:center;gap:4px;}
-.btn-play{background:var(--indigo);color:#fff;padding:6px 16px;border-radius:6px;
+.btn-play{background:#1a2e6e;color:#fff;padding:6px 16px;border-radius:6px;
   font-size:.82rem;font-weight:600;transition:background .2s;}
-.btn-play:hover{background:var(--indigo-d);color:#fff;}
+.btn-play:hover{background:#142457;color:#fff;}
 
-/* ===== EMPTY ===== */
 .empty-state{text-align:center;padding:60px 20px;}
 .empty-state .big-icon{font-size:4rem;margin-bottom:16px;}
 .empty-state h3{font-size:1.3rem;font-weight:700;color:var(--navy);margin-bottom:8px;}
 .empty-state p{color:var(--muted);}
 
-/* ===== WHY SECTION ===== */
 .why-section{background:var(--navy);padding:70px 5%;}
 .why-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:30px;margin-top:40px;}
 .why-card{text-align:center;padding:30px 20px;}
@@ -125,7 +119,6 @@ img{display:block;}
 .why-title{color:#fff;font-size:1.6rem;font-weight:800;text-align:center;}
 .why-title span{color:var(--indigo);}
 
-/* ===== FOOTER ===== */
 footer{background:#111;padding:40px 5% 24px;}
 .footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
   padding-bottom:24px;border-bottom:1px solid #2d2f31;}
@@ -146,7 +139,6 @@ footer{background:#111;padding:40px 5% 24px;}
 </head>
 <body>
 
-<!-- NAVBAR -->
 <header class="navbar">
   <a href="index.php" class="navbar-brand">
     <img src="images/mucoacademie.png" width="38" height="38" alt="Logo">
@@ -155,11 +147,14 @@ footer{background:#111;padding:40px 5% 24px;}
   <nav class="navbar-links">
     <a href="index.php">Accueil</a>
     <a href="#formations">Formations</a>
+    <?php if (!empty($_SESSION['viewer']['login'])): ?>
+      <span style="color:#6b7280;font-size:.82rem;">👤 <?php echo htmlspecialchars($_SESSION['viewer']['login']); ?></span>
+      <a href="viewer_logout.php" style="color:#9ca3af;font-size:.82rem;">Déconnexion</a>
+    <?php endif; ?>
     <a href="admin/login.php" class="btn-nav">Admin</a>
   </nav>
 </header>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-badge">🎓 Espace de formation</div>
@@ -182,7 +177,6 @@ footer{background:#111;padding:40px 5% 24px;}
   </div>
 </section>
 
-<!-- FORMATIONS -->
 <section class="section" id="formations">
   <div class="section-header">
     <h2 class="section-title">Nos <span>formations</span></h2>
@@ -228,7 +222,6 @@ footer{background:#111;padding:40px 5% 24px;}
   <?php endif; ?>
 </section>
 
-<!-- WHY -->
 <section class="why-section">
   <h2 class="why-title">Pourquoi <span>MucoAcadémie</span> ?</h2>
   <div class="why-grid">
@@ -255,7 +248,6 @@ footer{background:#111;padding:40px 5% 24px;}
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">Muco<span>Académie</span> · MUCODEC</div>
