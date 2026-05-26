@@ -20,7 +20,7 @@ if ($isAdmin) $nav[] = ["users.php","M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
 /* ═══════════════════════════════════════════════
-   DESIGN SYSTEM — FormaPro Admin
+   DESIGN SYSTEM — MucoAcadémie Admin
    ═══════════════════════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -34,10 +34,10 @@ if ($isAdmin) $nav[] = ["users.php","M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10
   --muted:    #6b7280;
   --subtle:   #374151;
 
-  /* Accent — MUCODEC rouge */
-  --indigo:   #e8192c;
-  --indigo-h: #c0141f;
-  --indigo-l: rgba(232,25,44,.12);
+  /* Accent — MUCODEC bleu */
+  --indigo:   #1a2e6e;
+  --indigo-h: #142457;
+  --indigo-l: rgba(26,46,110,.12);
 
   /* Status */
   --green:    #10b981;
@@ -256,7 +256,7 @@ button { font-family: inherit; }
 }
 .field input:focus, .field select:focus {
   border-color: var(--indigo);
-  box-shadow: 0 0 0 3px rgba(232,25,44,.15);
+  box-shadow: 0 0 0 3px rgba(26,46,110,.15);
 }
 
 /* Table */
@@ -317,7 +317,7 @@ button { font-family: inherit; }
 <!-- TOPBAR -->
 <header class="adm-top">
   <a href="dashboard.php" class="adm-top-logo">
-    <img src="../images/MUCODEC.gif" width="30" height="30" alt="">
+    <img src="../images/mucoacademie.png" width="30" height="30" alt="">
     Muco<span>Académie</span>
   </a>
   <div class="adm-top-right">

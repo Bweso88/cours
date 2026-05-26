@@ -36,7 +36,7 @@ $icons       = ["🖥️","📊","📋","🎯","💡","📈","🔧","📚","🎓
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 :root{
-  --navy:#0d1b4b;--indigo:#e8192c;--indigo-d:#c0141f;--indigo-l:#fff1f2;
+  --navy:#0d1b4b;--indigo:#1a2e6e;--indigo-d:#142457;--indigo-l:#eef2ff;
   --bg:#f5f7fa;--card:#ffffff;--muted:#6b7280;--border:#e5e7eb;--radius:10px;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -55,7 +55,7 @@ a{text-decoration:none;color:inherit;}
 
 .breadcrumb-bar{background:var(--navy);padding:10px 5%;border-top:1px solid #1a2e6e;}
 .breadcrumb-custom{display:flex;align-items:center;gap:8px;color:#9ca3af;font-size:.83rem;flex-wrap:wrap;}
-.breadcrumb-custom a{color:#ff8a94;transition:color .2s;}
+.breadcrumb-custom a{color:#93b4e8;transition:color .2s;}
 .breadcrumb-custom a:hover{color:#fff;}
 .breadcrumb-sep{color:#4b5563;}
 
@@ -79,7 +79,7 @@ a{text-decoration:none;color:inherit;}
   overflow-y:auto;position:sticky;top:64px;}
 .sidebar-head{padding:16px 18px;font-weight:700;font-size:.88rem;border-bottom:1px solid var(--border);
   background:var(--navy);color:#fff;display:flex;align-items:center;gap:8px;position:sticky;top:0;z-index:2;}
-.sidebar-head span{color:#ff8a94;}
+.sidebar-head span{color:#93b4e8;}
 .sidebar-item{display:flex;align-items:center;gap:12px;padding:12px 18px;
   border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;}
 .sidebar-item:hover{background:var(--bg);}
@@ -105,7 +105,7 @@ footer a{color:#6b7280;}footer a:hover{color:#fff;}
 
 <header class="navbar">
   <a href="index.php" class="navbar-brand">
-    <img src="images/MUCODEC.gif" width="36" height="36" alt="Logo" style="border-radius:6px;">
+    <img src="images/mucoacademie.png" width="36" height="36" alt="Logo" style="border-radius:6px;">
     Muco<span>Académie</span>
   </a>
   <nav class="navbar-links">

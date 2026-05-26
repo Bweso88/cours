@@ -31,8 +31,8 @@ $colors = ["#6366f1","#0ea5e9","#10b981","#f59e0b","#ef4444","#8b5cf6","#06b6d4"
 :root{
   --navy:#0d1b4b;
   --navy2:#1a2e6e;
-  --indigo:#e8192c;
-  --indigo-d:#c0141f;
+  --indigo:#1a2e6e;
+  --indigo-d:#142457;
   --sky:#1a2e6e;
   --bg:#f5f7fa;
   --card:#ffffff;
@@ -64,12 +64,12 @@ img{display:block;}
 .hero{background:linear-gradient(135deg,#0d1b4b 0%,#1a2e6e 50%,#0d1b4b 100%);
   padding:80px 5% 90px;position:relative;overflow:hidden;}
 .hero::before{content:"";position:absolute;top:-60px;right:-60px;width:420px;height:420px;
-  border-radius:50%;background:radial-gradient(circle,rgba(232,25,44,.25) 0%,transparent 70%);}
+  border-radius:50%;background:radial-gradient(circle,rgba(26,46,110,.25) 0%,transparent 70%);}
 .hero::after{content:"";position:absolute;bottom:-80px;left:10%;width:300px;height:300px;
   border-radius:50%;background:radial-gradient(circle,rgba(14,165,233,.2) 0%,transparent 70%);}
 .hero-inner{max-width:680px;position:relative;z-index:1;}
-.hero-badge{display:inline-block;background:rgba(232,25,44,.2);border:1px solid rgba(232,25,44,.4);
-  color:#ff8a94;padding:4px 14px;border-radius:20px;font-size:.8rem;font-weight:600;
+.hero-badge{display:inline-block;background:rgba(26,46,110,.2);border:1px solid rgba(26,46,110,.4);
+  color:#93b4e8;padding:4px 14px;border-radius:20px;font-size:.8rem;font-weight:600;
   letter-spacing:.05em;text-transform:uppercase;margin-bottom:20px;}
 .hero h1{font-size:clamp(1.8rem,4vw,3rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:16px;}
 .hero h1 span{color:var(--indigo);}
@@ -149,7 +149,7 @@ footer{background:#111;padding:40px 5% 24px;}
 <!-- NAVBAR -->
 <header class="navbar">
   <a href="index.php" class="navbar-brand">
-    <img src="images/MUCODEC.gif" width="38" height="38" alt="Logo">
+    <img src="images/mucoacademie.png" width="38" height="38" alt="Logo">
     Muco<span>Académie</span>
   </a>
   <nav class="navbar-links">
