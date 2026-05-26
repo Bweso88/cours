@@ -62,7 +62,7 @@ body{
 }
 .navbar-brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:800;font-size:1.15rem;text-decoration:none;}
 .navbar-brand img{background:#fff;border-radius:7px;padding:2px;}
-.navbar-brand span{color:#e8192c;}
+.navbar-brand span{color:#1a2e6e;}
 .back-link{color:#6b7280;font-size:.85rem;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s;}
 .back-link:hover{color:#fff;}
 
@@ -79,7 +79,7 @@ body{
 .left-panel::before{
   content:"";position:absolute;top:-100px;right:-100px;
   width:400px;height:400px;border-radius:50%;
-  background:radial-gradient(circle,rgba(232,25,44,.2) 0%,transparent 70%);
+  background:radial-gradient(circle,rgba(26,46,110,.2) 0%,transparent 70%);
 }
 .left-panel::after{
   content:"";position:absolute;bottom:-80px;left:-60px;
@@ -88,17 +88,17 @@ body{
 }
 .left-inner{position:relative;z-index:1;text-align:center;max-width:340px;}
 .left-badge{
-  display:inline-block;background:rgba(232,25,44,.15);border:1px solid rgba(232,25,44,.3);
-  color:#ff8a94;padding:5px 16px;border-radius:20px;font-size:.78rem;font-weight:700;
+  display:inline-block;background:rgba(26,46,110,.15);border:1px solid rgba(26,46,110,.3);
+  color:#93b4e8;padding:5px 16px;border-radius:20px;font-size:.78rem;font-weight:700;
   text-transform:uppercase;letter-spacing:.08em;margin-bottom:28px;
 }
 .left-inner h2{color:#fff;font-size:1.9rem;font-weight:800;line-height:1.2;margin-bottom:14px;}
-.left-inner h2 span{color:#e8192c;}
+.left-inner h2 span{color:#1a2e6e;}
 .left-inner p{color:#6b7280;font-size:.9rem;line-height:1.6;margin-bottom:36px;}
 .features{display:flex;flex-direction:column;gap:14px;text-align:left;}
 .feature{display:flex;align-items:flex-start;gap:12px;}
 .feature-icon{
-  width:36px;height:36px;border-radius:8px;background:rgba(232,25,44,.15);
+  width:36px;height:36px;border-radius:8px;background:rgba(26,46,110,.15);
   display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;margin-top:1px;
 }
 .feature-text strong{color:#e5e7eb;font-size:.88rem;display:block;margin-bottom:2px;}
@@ -114,7 +114,7 @@ body{
 .login-logo{display:flex;align-items:center;gap:12px;margin-bottom:32px;}
 .login-logo img{background:#fff;border-radius:10px;padding:3px;}
 .login-logo-text{font-size:1.2rem;font-weight:800;color:#fff;}
-.login-logo-text span{color:#e8192c;}
+.login-logo-text span{color:#1a2e6e;}
 .login-box h1{color:#fff;font-size:1.5rem;font-weight:800;margin-bottom:6px;}
 .login-box .subtitle{color:#6b7280;font-size:.88rem;margin-bottom:28px;}
 
@@ -129,7 +129,7 @@ input[type=text],input[type=password]{
   background:#1c1d1f;border:1px solid #2d2f31;border-radius:9px;
   color:#f3f4f6;font-size:.92rem;outline:none;transition:border-color .2s,box-shadow .2s;
 }
-input:focus{border-color:#e8192c;box-shadow:0 0 0 3px rgba(232,25,44,.15);}
+input:focus{border-color:#1a2e6e;box-shadow:0 0 0 3px rgba(26,46,110,.15);}
 input::placeholder{color:#374151;}
 
 .show-pass{
@@ -140,11 +140,11 @@ input::placeholder{color:#374151;}
 .show-pass:hover{color:#9ca3af;}
 
 .btn-login{
-  width:100%;padding:13px;background:#e8192c;color:#fff;border:none;
+  width:100%;padding:13px;background:#1a2e6e;color:#fff;border:none;
   border-radius:9px;font-weight:700;font-size:.95rem;cursor:pointer;
   transition:background .2s,transform .1s;margin-top:6px;
 }
-.btn-login:hover{background:#c0141f;}
+.btn-login:hover{background:#142457;}
 .btn-login:active{transform:scale(.98);}
 
 .alert-err{
@@ -155,8 +155,8 @@ input::placeholder{color:#374151;}
 
 .divider{border:none;border-top:1px solid #1f2937;margin:24px 0;}
 .login-footer{text-align:center;color:#374151;font-size:.82rem;}
-.login-footer a{color:#e8192c;font-weight:600;text-decoration:none;}
-.login-footer a:hover{color:#ff6b78;}
+.login-footer a{color:#1a2e6e;font-weight:600;text-decoration:none;}
+.login-footer a:hover{color:#5b82c4;}
 </style>
 </head>
 <body>
@@ -164,7 +164,7 @@ input::placeholder{color:#374151;}
 <!-- NAVBAR -->
 <header class="navbar">
   <a href="../index.php" class="navbar-brand">
-    <img src="../images/MUCODEC.gif" width="34" height="34" alt="Logo">
+    <img src="../images/mucoacademie.png" width="34" height="34" alt="Logo">
     Muco<span>Académie</span>
   </a>
   <a href="../index.php" class="back-link">
@@ -219,7 +219,7 @@ input::placeholder{color:#374151;}
     <div class="login-box">
 
       <div class="login-logo">
-        <img src="../images/MUCODEC.gif" width="42" height="42" alt="Logo">
+        <img src="../images/mucoacademie.png" width="42" height="42" alt="Logo">
         <div class="login-logo-text">Muco<span>Académie</span></div>
       </div>
 

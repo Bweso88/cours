@@ -14,7 +14,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["create"])) {
         if (!empty($_FILES["cover"]["name"]) && $_FILES["cover"]["error"] === UPLOAD_ERR_OK) {
             $ext = strtolower(pathinfo($_FILES["cover"]["name"], PATHINFO_EXTENSION));
             if (in_array($ext, ["jpg","jpeg","png","webp","gif"])) {
-                // Supprimer ancienne couverture si existe
                 foreach (glob($videoDir.$name."/cover.*") as $old) unlink($old);
                 move_uploaded_file($_FILES["cover"]["tmp_name"], $videoDir.$name."/cover.".$ext);
             }
@@ -226,7 +225,6 @@ function openRename(name) {
   document.getElementById('modalRename').style.display = 'flex';
 }
 
-/* Soumettre le changement de photo depuis la carte */
 function submitCover(input, theme) {
   if (!input.files[0]) return;
   document.getElementById('coverThemeName').value = theme;
@@ -236,7 +234,6 @@ function submitCover(input, theme) {
   document.getElementById('coverForm').submit();
 }
 
-/* Aperçu dans le modal de création */
 function previewCover(input) {
   if (!input.files[0]) return;
   var url = URL.createObjectURL(input.files[0]);
