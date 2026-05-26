@@ -1,0 +1,6 @@
+videos/
+views/
+test_upload.php
+admin/db.php
+.setup_done
+*.bak
