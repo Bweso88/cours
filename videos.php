@@ -38,6 +38,7 @@ $coverImg   = $coverFiles ? $coverFiles[0] : "";
 ::-webkit-scrollbar{display:none;}
 body{background:#faf8ff;font-family:"Plus Jakarta Sans",system-ui,sans-serif;color:#131b2e;}
 a{text-decoration:none;color:inherit;}
+
 .sidebar{position:fixed;left:0;top:0;height:100vh;width:260px;background:#fff;border-right:1px solid #c4c5d7;display:flex;flex-direction:column;justify-content:space-between;z-index:50;overflow-y:auto;}
 .sidebar-logo{height:64px;display:flex;align-items:center;padding:0 20px;gap:10px;border-bottom:1px solid #e2e7ff;flex-shrink:0;}
 .sidebar-logo img{background:#fff;border-radius:8px;padding:2px;}
@@ -58,6 +59,7 @@ a{text-decoration:none;color:inherit;}
 .sidebar-logout:hover{background:#fee2e2;}
 .sidebar-admin{display:flex;align-items:center;justify-content:center;gap:8px;padding:8px 12px;border-radius:8px;color:#747686;font-size:.82rem;font-weight:600;margin-top:6px;transition:.15s;}
 .sidebar-admin:hover{background:#f2f3ff;}
+
 .main-wrap{margin-left:260px;min-height:100vh;display:flex;flex-direction:column;}
 .topbar{position:sticky;top:0;height:56px;background:rgba(250,248,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid #e2e7ff;display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:40;}
 .topbar-left{display:flex;align-items:center;gap:8px;font-size:.88rem;color:#747686;}
@@ -66,7 +68,9 @@ a{text-decoration:none;color:inherit;}
 .topbar-sep{color:#c4c5d7;}
 .topbar-current{font-weight:700;color:#131b2e;}
 .topbar-user{display:flex;align-items:center;gap:8px;font-size:.88rem;color:#747686;}
+
 .content{padding:24px;flex:1;}
+
 .course-banner{border-radius:16px;padding:28px 32px;color:#fff;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#0037b0,#1d4ed8);}
 .course-banner.has-cover{background-size:cover;background-position:center;}
 .course-banner::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.45);pointer-events:none;}
@@ -76,12 +80,15 @@ a{text-decoration:none;color:inherit;}
 .banner-meta{display:flex;gap:20px;flex-wrap:wrap;}
 .banner-meta-item{display:flex;align-items:center;gap:6px;font-size:.88rem;color:rgba(255,255,255,.85);}
 .banner-meta-item strong{color:#fff;}
+
 .page-grid{display:grid;grid-template-columns:1fr 260px;gap:24px;align-items:start;}
 @media(max-width:1000px){.page-grid{grid-template-columns:1fr;}.themes-sidebar{display:none;}}
+
 .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
 .section-marker{width:4px;height:24px;background:#0037b0;border-radius:4px;display:inline-block;margin-right:10px;flex-shrink:0;}
 .section-title{font-size:1.1rem;font-weight:800;color:#131b2e;display:flex;align-items:center;}
 .section-count{font-size:.82rem;font-weight:600;color:#747686;background:#e2e7ff;padding:3px 10px;border-radius:20px;}
+
 .video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px;}
 .video-card{background:#fff;border-radius:12px;border:1px solid #c4c5d7;overflow:hidden;transition:.2s;box-shadow:0 1px 3px rgba(19,27,46,.05);}
 .video-card:hover{box-shadow:0 8px 24px rgba(19,27,46,.1);transform:translateY(-3px);}
@@ -98,6 +105,7 @@ a{text-decoration:none;color:inherit;}
 .video-views{color:#747686;font-size:.78rem;display:flex;align-items:center;gap:4px;}
 .btn-watch{background:#0037b0;color:#fff;padding:5px 14px;border-radius:6px;font-size:.78rem;font-weight:600;transition:.15s;}
 .video-card:hover .btn-watch{background:#1d4ed8;}
+
 .themes-sidebar{}
 .sidebar-box{background:#fff;border-radius:12px;border:1px solid #c4c5d7;padding:18px;position:sticky;top:72px;}
 .sidebar-box-title{font-size:.88rem;font-weight:700;color:#131b2e;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #e2e7ff;}
@@ -108,20 +116,29 @@ a{text-decoration:none;color:inherit;}
 .theme-link-name{flex:1;font-weight:600;}
 .theme-link-count{background:#e2e7ff;color:#747686;font-size:.72rem;font-weight:600;padding:2px 7px;border-radius:10px;}
 .theme-link.active .theme-link-count{background:#0037b010;color:#0037b0;}
+
 .empty-state{text-align:center;padding:60px 20px;}
 .empty-icon{font-size:3.5rem;margin-bottom:16px;}
 .empty-title{font-size:1.1rem;font-weight:700;color:#131b2e;margin-bottom:8px;}
 .empty-sub{font-size:.9rem;color:#747686;}
 .empty-link{color:#0037b0;font-weight:600;}
-@media(max-width:768px){.sidebar{display:none;}.main-wrap{margin-left:0;}}
+
+@media(max-width:768px){
+  .sidebar{display:none;}
+  .main-wrap{margin-left:0;}
+}
 </style>
 </head>
 <body>
+
 <aside class="sidebar">
   <div>
     <div class="sidebar-logo">
       <img src="images/mucoacademie.png" width="36" height="36" alt="Logo">
-      <div><div class="sidebar-logo-text">MucoAcadémie</div><div class="sidebar-logo-sub">Formations</div></div>
+      <div>
+        <div class="sidebar-logo-text">MucoAcadémie</div>
+        <div class="sidebar-logo-sub">Formations</div>
+      </div>
     </div>
     <div class="sidebar-nav">
       <div class="sidebar-section">Navigation</div>
@@ -145,7 +162,10 @@ a{text-decoration:none;color:inherit;}
     <?php if (!empty($_SESSION['viewer']['fullname'])): ?>
     <div class="sidebar-user">
       <div class="user-avatar"><?php echo strtoupper(mb_substr($_SESSION['viewer']['fullname'], 0, 1)); ?></div>
-      <div style="min-width:0;"><div class="user-name"><?php echo htmlspecialchars($_SESSION['viewer']['fullname']); ?></div><div class="user-role"><?php echo htmlspecialchars($_SESSION['viewer']['direction'] ?? 'Apprenant'); ?></div></div>
+      <div style="min-width:0;">
+        <div class="user-name"><?php echo htmlspecialchars($_SESSION['viewer']['fullname']); ?></div>
+        <div class="user-role"><?php echo htmlspecialchars($_SESSION['viewer']['direction'] ?? 'Apprenant'); ?></div>
+      </div>
     </div>
     <?php endif; ?>
     <a href="viewer_logout.php" class="sidebar-logout">
@@ -158,6 +178,7 @@ a{text-decoration:none;color:inherit;}
     </a>
   </div>
 </aside>
+
 <div class="main-wrap">
   <header class="topbar">
     <div class="topbar-left">
@@ -176,22 +197,30 @@ a{text-decoration:none;color:inherit;}
       <?php endif; ?>
     </div>
   </header>
+
   <div class="content">
     <?php if (!empty($theme) && is_dir($themePath)): ?>
-    <div class="course-banner <?php echo $coverImg ? 'has-cover' : ''; ?>" <?php echo $coverImg ? 'style="background-image:url('.htmlspecialchars($coverImg).')"' : ''; ?>>
+    <div class="course-banner <?php echo $coverImg ? 'has-cover' : ''; ?>"
+         <?php echo $coverImg ? 'style="background-image:url('.htmlspecialchars($coverImg).')"' : ''; ?>>
       <div class="banner-inner">
         <div class="banner-badge">🎓 Formation</div>
         <div class="banner-title"><?php echo htmlspecialchars($theme); ?></div>
         <div class="banner-meta">
-          <div class="banner-meta-item"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.069A1 1 0 0121 8.82V15.18a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg><strong><?php echo $videoCount; ?></strong> tutoriel(s)</div>
-          <div class="banner-meta-item"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zM2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg><strong><?php echo $totalViews; ?></strong> vue(s)</div>
-          <div class="banner-meta-item"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Accès libre</div>
+          <div class="banner-meta-item">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.069A1 1 0 0121 8.82V15.18a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg>
+            <strong><?php echo $videoCount; ?></strong> tutoriel(s)
+          </div>
+          <div class="banner-meta-item">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zM2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            <strong><?php echo $totalViews; ?></strong> vue(s)
+          </div>
         </div>
       </div>
     </div>
     <?php else: ?>
     <div class="course-banner"><div class="banner-inner"><div class="banner-title">Thème introuvable</div></div></div>
     <?php endif; ?>
+
     <div class="page-grid">
       <main>
         <?php if (empty($theme) || !is_dir($themePath)): ?>
@@ -206,22 +235,27 @@ a{text-decoration:none;color:inherit;}
           <div class="video-grid">
             <?php foreach ($videos as $idx => $video): ?>
               <?php
-                $file=$basename=$_=basename($video);
-                $filename=pathinfo($file,PATHINFO_FILENAME);
-                $vf=$viewsDir.$filename.".txt";
-                $views=file_exists($vf)?(int)file_get_contents($vf):0;
-                $displayName=ucfirst(str_replace(['_','-'],' ',$filename));
+                $file        = basename($video);
+                $filename    = pathinfo($file, PATHINFO_FILENAME);
+                $vf          = $viewsDir . $filename . ".txt";
+                $views       = file_exists($vf) ? (int)file_get_contents($vf) : 0;
+                $displayName = ucfirst(str_replace(['_','-'], ' ', $filename));
               ?>
               <a href="watch.php?theme=<?php echo urlencode($theme); ?>&video=<?php echo urlencode($file); ?>" class="video-card">
                 <div class="video-thumb">
-                  <video preload="metadata" muted><source src="<?php echo htmlspecialchars($video); ?>#t=0.1" type="video/mp4"></video>
+                  <video preload="metadata" muted>
+                    <source src="<?php echo htmlspecialchars($video); ?>#t=0.1" type="video/mp4">
+                  </video>
                   <div class="video-num"><?php echo str_pad($idx+1,2,'0',STR_PAD_LEFT); ?></div>
                   <div class="video-play-overlay"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
                 </div>
                 <div class="video-body">
                   <div class="video-title"><?php echo htmlspecialchars($displayName); ?></div>
                   <div class="video-footer">
-                    <div class="video-views"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><?php echo $views; ?> vue(s)</div>
+                    <div class="video-views">
+                      <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                      <?php echo $views; ?> vue(s)
+                    </div>
                     <span class="btn-watch">Regarder →</span>
                   </div>
                 </div>
@@ -230,14 +264,16 @@ a{text-decoration:none;color:inherit;}
           </div>
         <?php endif; ?>
       </main>
+
       <aside class="themes-sidebar">
         <div class="sidebar-box">
           <div class="sidebar-box-title">📚 Autres formations</div>
           <?php foreach (array_values($allThemes) as $i => $t):
-            $tn=basename($t); $tc=count(glob($t."/*.mp4")?:[]);
+            $tn = basename($t);
+            $tc = count(glob($t . "/*.mp4") ?: []);
           ?>
-            <a href="videos.php?theme=<?php echo urlencode($tn); ?>" class="theme-link <?php echo $tn===$theme?'active':''; ?>">
-              <span class="theme-link-icon"><?php echo $icons[$i%count($icons)]; ?></span>
+            <a href="videos.php?theme=<?php echo urlencode($tn); ?>" class="theme-link <?php echo $tn === $theme ? 'active' : ''; ?>">
+              <span class="theme-link-icon"><?php echo $icons[$i % count($icons)]; ?></span>
               <span class="theme-link-name"><?php echo htmlspecialchars($tn); ?></span>
               <span class="theme-link-count"><?php echo $tc; ?></span>
             </a>

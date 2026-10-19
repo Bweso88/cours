@@ -48,6 +48,8 @@ $icons       = ["🖥️","📊","📋","🎯","💡","📈","🔧","📚","🎓
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:#faf8ff;color:#131b2e;font-family:"Plus Jakarta Sans",system-ui,sans-serif;display:flex;flex-direction:column;min-height:100vh;}
 a{text-decoration:none;color:inherit;}
+img{display:block;}
+
 .sidebar{position:fixed;left:0;top:0;height:100%;width:260px;background:#fff;border-right:1px solid #c4c5d7;z-index:50;display:flex;flex-direction:column;box-shadow:1px 0 8px rgba(0,0,0,.04);}
 .sidebar-logo{height:64px;display:flex;align-items:center;padding:0 20px;gap:10px;border-bottom:1px solid #e2e7ff;}
 .sidebar-logo img{background:#fff;border-radius:8px;border:1px solid #e2e7ff;}
@@ -69,18 +71,23 @@ a{text-decoration:none;color:inherit;}
 .user-role{font-size:.72rem;color:#747686;}
 .logout-btn{font-size:.72rem;color:#ba1a1a;font-weight:600;display:block;text-align:right;margin-top:6px;transition:color .15s;}
 .logout-btn:hover{color:#7f1d1d;}
+
 .main-wrap{margin-left:260px;display:flex;flex-direction:column;min-height:100vh;}
+
 .top-header{position:sticky;top:0;z-index:40;height:56px;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid #e2e7ff;display:flex;align-items:center;padding:0 24px;gap:8px;box-shadow:0 1px 8px rgba(0,0,0,.04);}
 .breadcrumb{display:flex;align-items:center;gap:6px;font-size:.82rem;flex-wrap:wrap;}
 .breadcrumb a{color:#0037b0;font-weight:600;transition:color .15s;}
 .breadcrumb a:hover{color:#1d4ed8;}
 .breadcrumb-sep{color:#c4c5d7;font-size:.9rem;}
 .breadcrumb-current{color:#434655;font-weight:600;max-width:300px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
 .watch-grid{display:grid;grid-template-columns:1fr 320px;flex:1;min-height:0;}
 @media(max-width:900px){.watch-grid{grid-template-columns:1fr;}}
+
 .player-col{display:flex;flex-direction:column;}
 .player-bg{background:#000;width:100%;}
 .player-bg video{width:100%;max-height:calc(100vh - 56px);display:block;outline:none;}
+
 .video-info-bar{background:#fff;border-bottom:1px solid #e2e7ff;padding:16px 24px;}
 .video-title{font-size:1.2rem;font-weight:800;color:#131b2e;margin-bottom:10px;line-height:1.3;}
 .video-meta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
@@ -89,6 +96,7 @@ a{text-decoration:none;color:inherit;}
 .back-btn{display:inline-flex;align-items:center;gap:5px;background:#eaedff;color:#0037b0;padding:6px 14px;border-radius:8px;font-size:.8rem;font-weight:700;transition:background .15s;}
 .back-btn:hover{background:#e2e7ff;}
 .back-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;}
+
 .playlist-col{background:#fff;border-left:1px solid #e2e7ff;overflow-y:auto;height:calc(100vh - 56px);position:sticky;top:56px;}
 .playlist-head{padding:14px 18px;font-weight:700;font-size:.85rem;background:#f2f3ff;border-bottom:1px solid #e2e7ff;position:sticky;top:0;z-index:2;color:#131b2e;}
 .playlist-count{font-weight:400;color:#747686;font-size:.78rem;margin-left:4px;}
@@ -106,14 +114,22 @@ a{text-decoration:none;color:inherit;}
 .pi-name{font-size:.82rem;font-weight:600;color:#131b2e;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 .pi-views{font-size:.7rem;color:#747686;margin-top:3px;display:flex;align-items:center;gap:3px;}
 .pi-views svg{width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:2;}
-@media(max-width:640px){.sidebar{display:none;}.main-wrap{margin-left:0;}}
+
+@media(max-width:640px){
+  .sidebar{display:none;}
+  .main-wrap{margin-left:0;}
+}
 </style>
 </head>
 <body>
+
 <aside class="sidebar">
   <div class="sidebar-logo">
     <img src="images/mucoacademie.png" width="36" height="36" alt="Logo">
-    <div class="sidebar-logo-text"><strong>MucoAcadémie</strong><span>Espace Formation</span></div>
+    <div class="sidebar-logo-text">
+      <strong>MucoAcadémie</strong>
+      <span>Espace Formation</span>
+    </div>
   </div>
   <div class="sidebar-section"><span class="sidebar-section-label">Navigation</span></div>
   <nav class="sidebar-nav">
@@ -154,6 +170,7 @@ a{text-decoration:none;color:inherit;}
     <?php endif; ?>
   </div>
 </aside>
+
 <div class="main-wrap">
   <header class="top-header">
     <nav class="breadcrumb">
@@ -164,6 +181,7 @@ a{text-decoration:none;color:inherit;}
       <span class="breadcrumb-current"><?php echo htmlspecialchars($displayName); ?></span>
     </nav>
   </header>
+
   <div class="watch-grid">
     <div class="player-col">
       <div class="player-bg">
@@ -175,44 +193,72 @@ a{text-decoration:none;color:inherit;}
       <div class="video-info-bar">
         <div class="video-title"><?php echo htmlspecialchars($displayName); ?></div>
         <div class="video-meta">
-          <div class="meta-pill"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><?php echo $views; ?> vue(s)</div>
-          <div class="meta-pill"><svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg><?php echo htmlspecialchars($theme); ?></div>
-          <div class="meta-pill"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><?php echo count($allVideos); ?> vidéo(s) dans ce thème</div>
-          <a href="videos.php?theme=<?php echo urlencode($theme); ?>" class="back-btn"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Retour au thème</a>
+          <div class="meta-pill">
+            <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <?php echo $views; ?> vue(s)
+          </div>
+          <div class="meta-pill">
+            <svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            <?php echo htmlspecialchars($theme); ?>
+          </div>
+          <div class="meta-pill">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <?php echo count($allVideos); ?> vidéo(s) dans ce thème
+          </div>
+          <a href="videos.php?theme=<?php echo urlencode($theme); ?>" class="back-btn">
+            <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            Retour au thème
+          </a>
         </div>
       </div>
     </div>
+
     <aside class="playlist-col">
-      <div class="playlist-head">Dans ce thème <span class="playlist-count">(<?php echo count($allVideos); ?> vidéos)</span></div>
+      <div class="playlist-head">
+        Dans ce thème <span class="playlist-count">(<?php echo count($allVideos); ?> vidéos)</span>
+      </div>
       <?php foreach ($allVideos as $idx => $v):
-        $f=basename($v); $fn=pathinfo($f,PATHINFO_FILENAME);
-        $vvf=$viewsDir.$fn.".txt"; $vc=file_exists($vvf)?(int)file_get_contents($vvf):0;
-        $lbl=ucfirst(str_replace(['_','-'],' ',$fn));
-        $isCurrent=($f===$file);
+        $f    = basename($v);
+        $fn   = pathinfo($f, PATHINFO_FILENAME);
+        $vvf  = $viewsDir . $fn . ".txt";
+        $vc   = file_exists($vvf) ? (int)file_get_contents($vvf) : 0;
+        $lbl  = ucfirst(str_replace(['_','-'], ' ', $fn));
+        $isCurrent = ($f === $file);
       ?>
-      <a href="watch.php?theme=<?php echo urlencode($theme); ?>&video=<?php echo urlencode($f); ?>" class="playlist-item <?php echo $isCurrent?'current':''; ?>">
+      <a href="watch.php?theme=<?php echo urlencode($theme); ?>&video=<?php echo urlencode($f); ?>"
+         class="playlist-item <?php echo $isCurrent ? 'current' : ''; ?>">
         <div class="pi-thumb">
-          <video preload="metadata" muted><source src="<?php echo htmlspecialchars($v); ?>#t=0.1" type="video/mp4"></video>
-          <?php if (!$isCurrent): ?><div class="pi-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><?php endif; ?>
+          <video preload="metadata" muted>
+            <source src="<?php echo htmlspecialchars($v); ?>#t=0.1" type="video/mp4">
+          </video>
+          <?php if (!$isCurrent): ?>
+          <div class="pi-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <?php endif; ?>
         </div>
         <div class="pi-info">
-          <span class="pi-num <?php echo $isCurrent?'current-num':''; ?>"><?php echo str_pad($idx+1,2,'0',STR_PAD_LEFT); ?></span>
+          <span class="pi-num <?php echo $isCurrent ? 'current-num' : ''; ?>"><?php echo str_pad($idx+1,2,'0',STR_PAD_LEFT); ?></span>
           <div class="pi-name"><?php echo htmlspecialchars($lbl); ?></div>
-          <div class="pi-views"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><?php echo $vc; ?> vue(s)</div>
+          <div class="pi-views">
+            <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <?php echo $vc; ?> vue(s)
+          </div>
         </div>
       </a>
       <?php endforeach; ?>
     </aside>
   </div>
 </div>
+
 <script>
 (function(){
-  var video=document.querySelector('.player-bg video');
-  var logId=<?php echo $watchLogId?(int)$watchLogId:'null'; ?>;
-  if(!video||!logId) return;
-  function send(sec){navigator.sendBeacon('track_video.php',new URLSearchParams({log_id:logId,seconds:Math.round(sec)}));}
-  setInterval(function(){if(!video.paused) send(video.currentTime);},30000);
-  window.addEventListener('beforeunload',function(){send(video.currentTime);});
+  var video  = document.querySelector('.player-bg video');
+  var logId  = <?php echo $watchLogId ? (int)$watchLogId : 'null'; ?>;
+  if (!video || !logId) return;
+  function send(sec) {
+    navigator.sendBeacon('track_video.php', new URLSearchParams({log_id: logId, seconds: Math.round(sec)}));
+  }
+  setInterval(function(){ if (!video.paused) send(video.currentTime); }, 30000);
+  window.addEventListener('beforeunload', function(){ send(video.currentTime); });
 })();
 </script>
 </body>

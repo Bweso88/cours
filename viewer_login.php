@@ -74,13 +74,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if (empty($login)) {
-            $error = "Session expirée. Recommencez la connexion."; $step = 'login';
+            $error = "Session expirée. Recommencez la connexion.";
+            $step  = 'login';
         } elseif (empty($direction)) {
-            $error = "Veuillez sélectionner votre direction."; $step = 'profile'; $preLogin = $login;
+            $error = "Veuillez sélectionner votre direction.";
+            $step  = 'profile'; $preLogin = $login;
         } elseif (empty($service)) {
-            $error = "Veuillez sélectionner votre service."; $step = 'profile'; $preLogin = $login;
+            $error = "Veuillez sélectionner votre service.";
+            $step  = 'profile'; $preLogin = $login;
         } elseif ($dirType === 'regionale' && !empty($orgData) && empty($agence)) {
-            $error = "Veuillez sélectionner votre agence."; $step = 'profile'; $preLogin = $login;
+            $error = "Veuillez sélectionner votre agence.";
+            $step  = 'profile'; $preLogin = $login;
         } else {
             $stmt = $pdo->prepare("SELECT id FROM viewers WHERE windows_login = ?");
             $stmt->execute([$login]);
@@ -96,7 +100,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $vid = (int)$pdo->lastInsertId();
             }
 
-            $_SESSION['viewer'] = ['id'=>$vid,'login'=>$login,'fullname'=>$fullname,'direction'=>$direction,'service'=>$service,'agence'=>$agence];
+            $_SESSION['viewer'] = [
+                'id'        => $vid,
+                'login'     => $login,
+                'fullname'  => $fullname,
+                'direction' => $direction,
+                'service'   => $service,
+                'agence'    => $agence,
+            ];
             try {
                 $pdo->prepare("INSERT INTO viewer_sessions (viewer_id, ip_address, user_agent) VALUES (?,?,?)")
                     ->execute([$vid, $_SERVER['REMOTE_ADDR'] ?? '', substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 500)]);
@@ -123,21 +134,28 @@ $hasOrgData   = !empty($orgData);
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 body{min-height:100vh;background:#faf8ff;font-family:"Plus Jakarta Sans",system-ui,sans-serif;display:flex;flex-direction:column;color:#131b2e;}
+
 .navbar{height:60px;background:#ffffff;display:flex;align-items:center;justify-content:space-between;padding:0 5%;border-bottom:1px solid #c4c5d7;position:sticky;top:0;z-index:10;box-shadow:0 1px 8px rgba(0,0,0,.04);}
 .navbar-brand{display:flex;align-items:center;gap:10px;color:#131b2e;font-weight:800;font-size:1.1rem;text-decoration:none;}
 .navbar-brand img{background:#fff;border-radius:7px;padding:2px;border:1px solid #e2e7ff;}
 .navbar-brand-text{display:flex;flex-direction:column;line-height:1;}
 .navbar-brand-text strong{color:#131b2e;font-size:1rem;}
 .navbar-brand-text span{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#0037b0;margin-top:2px;}
+
 .page{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
+
 .login-card{background:#ffffff;border:1px solid #c4c5d7;border-radius:16px;padding:40px 36px;width:100%;max-width:460px;box-shadow:0 4px 24px rgba(0,55,176,.06);}
+
 .card-icon{width:52px;height:52px;border-radius:14px;background:#eaedff;border:1px solid #c4c5d7;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:18px;}
+
 .login-card h1{color:#131b2e;font-size:1.4rem;font-weight:800;margin-bottom:6px;}
 .login-card .subtitle{color:#434655;font-size:.88rem;margin-bottom:26px;line-height:1.6;}
 .subtitle strong{color:#131b2e;}
+
 .step-indicator{display:flex;gap:8px;margin-bottom:26px;}
 .step{flex:1;height:3px;border-radius:2px;background:#e2e7ff;transition:background .3s;}
 .step.done{background:#0037b0;}
+
 .form-group{margin-bottom:18px;}
 label{display:block;color:#434655;font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:7px;}
 .input-wrap{position:relative;}
@@ -148,25 +166,35 @@ input::placeholder{color:#747686;}
 select:disabled{opacity:.45;cursor:not-allowed;background:#f2f3ff;}
 .select-arrow{position:absolute;right:12px;top:50%;transform:translateY(-50%);pointer-events:none;color:#747686;}
 .select-arrow svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;}
+
 .field-note{color:#747686;font-size:.76rem;margin-top:5px;line-height:1.4;}
+
 .btn-submit{width:100%;padding:13px;background:#0037b0;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:.95rem;font-family:inherit;cursor:pointer;transition:background .2s,transform .1s;margin-top:4px;}
 .btn-submit:hover{background:#1d4ed8;}
 .btn-submit:active{transform:scale(.98);}
+
 .alert-err{background:#fef2f2;border:1px solid #fecaca;color:#ba1a1a;padding:10px 14px;border-radius:8px;font-size:.85rem;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
 .alert-err svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0;}
+
 .login-hint{margin-top:24px;padding-top:20px;border-top:1px solid #e2e7ff;color:#747686;font-size:.8rem;text-align:center;line-height:1.6;}
 .login-hint strong{color:#434655;}
 </style>
 </head>
 <body>
+
 <header class="navbar">
   <a href="index.php" class="navbar-brand">
     <img src="images/mucoacademie.png" width="32" height="32" alt="Logo">
-    <div class="navbar-brand-text"><strong>MucoAcadémie</strong><span>Espace Formation</span></div>
+    <div class="navbar-brand-text">
+      <strong>MucoAcadémie</strong>
+      <span>Espace Formation</span>
+    </div>
   </a>
 </header>
+
 <div class="page">
   <div class="login-card">
+
     <?php if ($step === 'login'): ?>
       <div class="card-icon">🔐</div>
       <h1>Bienvenue</h1>
@@ -188,6 +216,7 @@ select:disabled{opacity:.45;cursor:not-allowed;background:#f2f3ff;}
         </div>
         <button type="submit" class="btn-submit">Continuer →</button>
       </form>
+
     <?php else: ?>
       <div class="card-icon">👤</div>
       <h1><?php echo $isFirstVisit ? 'Première connexion' : 'Votre profil'; ?></h1>
@@ -216,13 +245,14 @@ select:disabled{opacity:.45;cursor:not-allowed;background:#f2f3ff;}
                 <option value="">— Sélectionner une direction —</option>
                 <?php foreach ($orgData as $d): ?>
                   <option value="<?php echo htmlspecialchars($d['nom']); ?>" data-type="<?php echo $d['type']; ?>">
-                    <?php echo htmlspecialchars($d['nom']); ?> <?php echo $d['type']==='regionale' ? ' (Régionale)' : ' (Centrale)'; ?>
+                    <?php echo htmlspecialchars($d['nom']); ?>
+                    <?php echo $d['type'] === 'regionale' ? ' (Régionale)' : ' (Centrale)'; ?>
                   </option>
                 <?php endforeach; ?>
               </select>
               <span class="select-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
             <?php else: ?>
-              <input type="text" id="direction" name="direction" placeholder="Ex : DRH, DOSI…" required>
+              <input type="text" id="direction" name="direction" placeholder="Ex : DRH, DOSI, Direction Commerciale…" required>
             <?php endif; ?>
           </div>
         </div>
@@ -236,7 +266,7 @@ select:disabled{opacity:.45;cursor:not-allowed;background:#f2f3ff;}
               </select>
               <span class="select-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
             <?php else: ?>
-              <input type="text" id="service" name="service" placeholder="Ex : Service Formation…" required>
+              <input type="text" id="service" name="service" placeholder="Ex : Service Formation, Agence Centre…" required>
             <?php endif; ?>
           </div>
         </div>
@@ -244,32 +274,59 @@ select:disabled{opacity:.45;cursor:not-allowed;background:#f2f3ff;}
           <label for="agence">Agence <span style="color:#ba1a1a">*</span></label>
           <div class="input-wrap">
             <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-            <select id="agence" name="agence"><option value="">— Sélectionner une agence —</option></select>
+            <select id="agence" name="agence">
+              <option value="">— Sélectionner une agence —</option>
+            </select>
             <span class="select-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
           </div>
         </div>
         <button type="submit" class="btn-submit">Accéder aux formations →</button>
       </form>
     <?php endif; ?>
-    <p class="login-hint">Cet accès est réservé aux collaborateurs MUCODEC.<br><strong>Problème de connexion ?</strong> Contactez le Service Formation.</p>
+
+    <p class="login-hint">
+      Cet accès est réservé aux collaborateurs MUCODEC.<br>
+      <strong>Problème de connexion ?</strong> Contactez le Service Formation.
+    </p>
   </div>
 </div>
+
 <?php if ($step === 'profile' && $hasOrgData): ?>
 <script>
 var orgData = <?php echo json_encode($orgData, JSON_UNESCAPED_UNICODE); ?>;
 function onDirectionChange(sel) {
-  var dirNom=sel.value, dir=orgData.find(function(d){return d.nom===dirNom;});
-  var svcSel=document.getElementById('service'), ageSel=document.getElementById('agence'), ageGroup=document.getElementById('agence-group');
-  svcSel.innerHTML='<option value="">— Sélectionner un service —</option>';
-  svcSel.disabled=!dir;
-  if(dir){
-    dir.services.forEach(function(s){var opt=document.createElement('option');opt.value=s;opt.textContent=s;svcSel.appendChild(opt);});
-    if(dir.type==='regionale'&&dir.agences.length>0){
-      ageSel.innerHTML='<option value="">— Sélectionner une agence —</option>';
-      dir.agences.forEach(function(a){var opt=document.createElement('option');opt.value=a;opt.textContent=a;ageSel.appendChild(opt);});
-      ageSel.required=true; ageGroup.style.display='';
-    } else { ageSel.required=false; ageSel.innerHTML=''; ageGroup.style.display='none'; }
-  } else { ageSel.required=false; ageSel.innerHTML=''; ageGroup.style.display='none'; }
+  var dirNom   = sel.value;
+  var dir      = orgData.find(function(d){ return d.nom === dirNom; });
+  var svcSel   = document.getElementById('service');
+  var ageSel   = document.getElementById('agence');
+  var ageGroup = document.getElementById('agence-group');
+  svcSel.innerHTML = '<option value="">— Sélectionner un service —</option>';
+  svcSel.disabled  = !dir;
+  if (dir) {
+    dir.services.forEach(function(s){
+      var opt = document.createElement('option');
+      opt.value = s; opt.textContent = s;
+      svcSel.appendChild(opt);
+    });
+    if (dir.type === 'regionale' && dir.agences.length > 0) {
+      ageSel.innerHTML = '<option value="">— Sélectionner une agence —</option>';
+      dir.agences.forEach(function(a){
+        var opt = document.createElement('option');
+        opt.value = a; opt.textContent = a;
+        ageSel.appendChild(opt);
+      });
+      ageSel.required = true;
+      ageGroup.style.display = '';
+    } else {
+      ageSel.required = false;
+      ageSel.innerHTML = '';
+      ageGroup.style.display = 'none';
+    }
+  } else {
+    ageSel.required = false;
+    ageSel.innerHTML = '';
+    ageGroup.style.display = 'none';
+  }
 }
 </script>
 <?php endif; ?>
