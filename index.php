@@ -200,11 +200,11 @@ footer{background:#131b2e;padding:28px 24px;margin-top:24px;border-radius:12px;}
       <?php else: ?>
         <div class="theme-grid">
           <?php foreach ($themeData as $i => $theme): ?>
-            <?php $color=$colors[$i%count($colors)]; $icon=$icons[$i%count($icons)]; ?>
+            <?php $color = $colors[$i % count($colors)]; $icon = $icons[$i % count($icons)]; ?>
             <a href="videos.php?theme=<?php echo urlencode($theme['name']); ?>" class="theme-card">
               <div class="theme-thumb" style="background:linear-gradient(135deg,<?php echo $color; ?>22,<?php echo $color; ?>44);">
                 <?php if (!empty($theme['cover'])): ?>
-                  <img src="<?php echo htmlspecialchars($theme['cover']); ?>" alt="" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
+                  <img src="<?php echo htmlspecialchars($theme['cover']); ?>" alt="<?php echo htmlspecialchars($theme['name']); ?>" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
                 <?php else: ?>
                   <span style="font-size:3rem;filter:drop-shadow(0 4px 8px rgba(0,0,0,.2));"><?php echo $icon; ?></span>
                 <?php endif; ?>
